@@ -39,7 +39,7 @@ export const editFile = async (
   sandbox: Sandbox,
   path: string,
   old_str: string,
-  new_str: string,
+  new_str: string
 ) => {
   console.log(`Editing file: ${path}`);
   // Read the file content using sandbox
@@ -73,16 +73,18 @@ export const editFile = async (
 export const createPR = async (
   sandbox: Sandbox,
   repoUrl: string,
-  prDetails: { title: string; body: string; branch: string | null },
+  prDetails: { title: string; body: string; branch: string | null }
 ) => {
   try {
     if (!process.env.GITHUB_TOKEN)
       throw new Error("GITHUB_TOKEN environment variable is required");
 
     const { title, body, branch } = prDetails;
-    console.log(`Creating PR with title: ${title}, body: ${body}, branch: ${branch}`);
+    console.log(
+      `Creating PR with title: ${title}, body: ${body}, branch: ${branch}`
+    );
 
-    const branchName = `${ branch || `feature/ai-changes` }-${Date.now()}`;
+    const branchName = `${branch || `feature/ai-changes`}-${Date.now()}`;
 
     // Setup git
     await sandbox.runCommand("git", [
@@ -94,7 +96,7 @@ export const createPR = async (
 
     const authUrl = repoUrl!.replace(
       "https://github.com/",
-      `https://${process.env.GITHUB_TOKEN}@github.com/`,
+      `https://${process.env.GITHUB_TOKEN}@github.com/`
     );
     await sandbox.runCommand("git", ["remote", "set-url", "origin", authUrl]);
 
@@ -179,7 +181,7 @@ export const createPR = async (
     } else {
       throw new Error(result.message || "Failed to create PR");
     }
-  } catch (error) {
+  } catch (error: any) {
     return { error: error.message };
   }
 };

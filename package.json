@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "tsx utils/test.ts"
+    "test": "tsx utils/test.ts",
+    "sandbox-test": "tsx utils/sandboxAgentTest.ts"
   },
   "keywords": [],
   "author": "",
